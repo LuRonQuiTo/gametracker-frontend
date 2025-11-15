@@ -12,8 +12,7 @@ import EstadisticasPersonales from "./componentes/EstadisticasPersonales";
 import GameDetail from "./componentes/GameDetail";
 import { API_URL } from "./config";
 import { FaGamepad } from "react-icons/fa";
-
-import "./App.css"
+import "./App.css";
 
 function App() {
   const [juegos, setJuegos] = useState([]);
@@ -22,6 +21,7 @@ function App() {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
+  // cargar juegos al iniciar
   useEffect(() => {
     cargarJuegos();
   }, []);
@@ -44,11 +44,13 @@ function App() {
     try {
       setError("");
       if (formData._id) {
+        // actualizar
         const actualizado = await updateJuego(formData._id, formData);
         setJuegos((prev) =>
           prev.map((j) => (j._id === actualizado._id ? actualizado : j))
         );
       } else {
+        // crear
         const nuevo = await createJuego(formData);
         setJuegos((prev) => [nuevo, ...prev]);
       }
@@ -87,7 +89,7 @@ function App() {
       <header className="app-header">
         <motion.div
           className="logo-box"
-          initial={{ y: -20, opacity: 0 }}
+          initial={{ y: -12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
           <FaGamepad className="logo-icon" />
@@ -96,14 +98,27 @@ function App() {
             <p className="subtitle">
               Organiza, reseña y analiza tu experiencia gamer.
             </p>
+            <p className="api-info">API: {API_URL}</p>
           </div>
         </motion.div>
-        <small className="api-info">API: {API_URL}</small>
       </header>
 
+      {/* LAYOUT DOS COLUMNAS */}
       <main className="layout">
+        {/* IZQUIERDA: formulario + stats */}
+        <aside className="side-column">
+          <FormularioJuego
+            juego={juegoEditando}
+            onGuardar={manejarGuardarJuego}
+            onCancelar={() => setJuegoEditando(null)}
+          />
+
+          <EstadisticasPersonales juegos={juegos} />
+        </aside>
+
+        {/* DERECHA: biblioteca */}
         <section className="main-column">
-          {cargando && <p>Cargando biblioteca...</p>}
+          {cargando && <p className="status-text">Cargando biblioteca...</p>}
           {error && <p className="error-msg">{error}</p>}
 
           <BibliotecaJuegos
@@ -114,22 +129,11 @@ function App() {
             onVerDetalle={manejarVerDetalle}
           />
         </section>
-
-        <aside className="side-column">
-          <FormularioJuego
-            juego={juegoEditando}
-            onGuardar={manejarGuardarJuego}
-            onCancelar={() => setJuegoEditando(null)}
-          />
-          <EstadisticasPersonales juegos={juegos} />
-        </aside>
       </main>
 
+      {/* MODAL DETALLE */}
       {juegoDetalle && (
-        <GameDetail
-          juego={juegoDetalle}
-          onClose={() => setJuegoDetalle(null)}
-        />
+        <GameDetail juego={juegoDetalle} onClose={() => setJuegoDetalle(null)} />
       )}
     </div>
   );
