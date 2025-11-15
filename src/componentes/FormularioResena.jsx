@@ -7,7 +7,7 @@ function FormularioResena({ juegoId, onResenaCreada }) {
   const [dificultad, setDificultad] = useState("Normal");
   const [recomendaria, setRecomendaria] = useState(false);
 
-  // ⭐ rating
+  // Puntuacion
   const [puntuacion, setPuntuacion] = useState(0);
   const [hovered, setHovered] = useState(0);
   const stars = [1, 2, 3, 4, 5];
@@ -24,7 +24,7 @@ function FormularioResena({ juegoId, onResenaCreada }) {
 
     // Payload con nombres EXACTOS del modelo
     const payload = {
-      juegoId, // 👈 el id del juego lo manda el padre
+      juegoId, 
       textoResena,
       puntuacion,
       horasJugadas: horasJugadas ? Number(horasJugadas) : 0,
@@ -35,12 +35,10 @@ function FormularioResena({ juegoId, onResenaCreada }) {
     try {
       setEnviando(true);
 
-      // El padre (GameDetail) hará el POST real
       if (onResenaCreada) {
         await onResenaCreada(payload);
       }
 
-      // Limpiar formulario
       setTextoResena("");
       setHorasJugadas("");
       setDificultad("Normal");
@@ -58,7 +56,7 @@ function FormularioResena({ juegoId, onResenaCreada }) {
     <form className="resena-form" onSubmit={manejarSubmit}>
       <h3>Escribir reseña</h3>
 
-      {/* ⭐ PUNTUACIÓN CON ESTRELLAS */}
+      {/*puntuacion de estrellas*/}
       <label>Puntuación</label>
       <div className="rating-input">
         {stars.map((s) => {

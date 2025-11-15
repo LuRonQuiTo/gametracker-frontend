@@ -116,7 +116,7 @@ function App() {
           <EstadisticasPersonales juegos={juegos} />
         </aside>
 
-        {/* DERECHA: biblioteca */}
+        {}
         <section className="main-column">
           {cargando && <p className="status-text">Cargando biblioteca...</p>}
           {error && <p className="error-msg">{error}</p>}

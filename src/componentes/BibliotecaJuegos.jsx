@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import TarjetaJuego from "./TarjetaJuego";
 
-
 function BibliotecaJuegos({
   juegos,
   onEditar,

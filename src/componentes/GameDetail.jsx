@@ -12,7 +12,6 @@ function GameDetail({ juego, onClose }) {
   const [resenas, setResenas] = useState([]);
   const [cargando, setCargando] = useState(false);
 
-  // Normalizamos la URL de portada (por si en la BD hay campos antiguos)
   const portadaUrl =
     juego.imagenPortada ||
     juego.urlPortada ||
@@ -23,7 +22,6 @@ function GameDetail({ juego, onClose }) {
   useEffect(() => {
     if (!juego?._id) return;
     cargarResenas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [juego._id]);
 
   async function cargarResenas() {
@@ -41,7 +39,7 @@ function GameDetail({ juego, onClose }) {
     setResenas((prev) => prev.filter((r) => r._id !== id));
   }
 
-  // Aquí se hace el POST real con createResena
+  //POST real con createResena
   async function manejarCrearResena(payload) {
     const nueva = await createResena(payload);
     setResenas((prev) => [nueva, ...prev]);
@@ -64,7 +62,7 @@ function GameDetail({ juego, onClose }) {
         </button>
 
         <div className="detail-layout">
-          {/* Izquierda: imagen + pastel */}
+          {/* Izquierda: imagen + grafica en forma de pastel*/}
           <div className="detail-left">
             <div className="detail-image-wrapper">
               <div className="aspect-9-16">
@@ -74,7 +72,7 @@ function GameDetail({ juego, onClose }) {
                     alt={juego.titulo}
                     className="detail-image"
                     onError={(e) => {
-                      // si la URL falla, mostramos un fondo placeholder
+                      // si la URL falla,se muestra una placeholder
                       e.currentTarget.style.display = "none";
                       e.currentTarget.parentElement.innerHTML =
                         '<div class="card-portada-placeholder">Sin portada</div>';
@@ -130,7 +128,7 @@ function GameDetail({ juego, onClose }) {
             </div>
           </div>
 
-          {/* Derecha: reseñas tipo timeline scrollable */}
+          {/* Derecha: reseñas tipo linea de tiempo*/}
           <div className="detail-right">
             <h3>Reseñas de usuarios</h3>
             {cargando ? (

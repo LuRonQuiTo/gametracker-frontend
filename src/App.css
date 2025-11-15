@@ -26,7 +26,7 @@ body {
   color: var(--text);
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* contenedor principal */
 
 .app-container {
   min-height: 100vh;
@@ -35,7 +35,7 @@ body {
   color: var(--text);
 }
 
-/* HEADER */
+/* header */
 
 .app-header {
   display: flex;
@@ -72,8 +72,6 @@ body {
   color: var(--text-muted);
 }
 
-/* LAYOUT 2 COLUMNAS */
-
 .layout {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
@@ -81,15 +79,11 @@ body {
   align-items: flex-start;
 }
 
-/* COLUMNA IZQUIERDA: FORM + STATS */
-
 .side-column {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
-/* COLUMNA DERECHA: BIBLIOTECA */
 
 .main-column {
   background: var(--surface);
@@ -104,8 +98,6 @@ body {
   margin-bottom: 0.6rem;
 }
 
-/* PANEL GENÉRICO (FORM/STATS) */
-
 .side-column > * {
   background: var(--surface);
   border-radius: var(--radius-lg);
@@ -113,8 +105,6 @@ body {
   padding: 0.9rem 1rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
-
-/* TEXTOS DE ESTADO / ERRORES */
 
 .status-text {
   font-size: 0.85rem;
@@ -130,16 +120,12 @@ body {
   margin-bottom: 0.6rem;
 }
 
-/* GRID DE BIBLIOTECA (TARJETAS) */
-
 .biblioteca-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 0.9rem;
   margin-top: 0.8rem;
 }
-
-/* BOTONES GENÉRICOS */
 
 .btn-secondary,
 .btn-danger {
@@ -173,8 +159,6 @@ body {
   background: #b91c1c;
 }
 
-/* TAGS */
-
 .tag {
   border-radius: 999px;
   padding: 0.15rem 0.55rem;
@@ -197,15 +181,11 @@ body {
   color: #fef9c3;
 }
 
-/* INPUTS BÁSICOS */
-
 input,
 select,
 textarea {
   font-family: inherit;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 960px) {
   .layout {
@@ -221,7 +201,7 @@ textarea {
   }
 }
 
-/* === FORMULARIO DE LA COLUMNA IZQUIERDA === */
+/* formulario a la izquierda */
 
 .side-column form {
   display: flex;
@@ -274,7 +254,7 @@ textarea {
   align-self: flex-end;
 }
 
-/* === ESTADÍSTICAS PERSONALES === */
+/* estadisticas*/
 
 .estadisticas-card h2 {
   margin-top: 0;
@@ -306,7 +286,7 @@ textarea {
   color: var(--text);
 }
 
-/* === RATING ESTRELLAS (FORMULARIO) === */
+/* puntuacion en estrellas */
 
 .rating-input {
   display: flex;
@@ -336,8 +316,6 @@ textarea {
   color: #cbd5e1;
   margin-left: 0.4rem;
 }
-
-/* === DETALLE DEL JUEGO (MODAL) === */
 
 .detail-overlay {
   position: fixed;
@@ -465,8 +443,6 @@ textarea {
   color: #d1d5db;
 }
 
-/* PIE CHART PROMEDIO */
-
 .detail-pie-section h3 {
   margin: 0 0 0.4rem;
   font-size: 0.95rem;
@@ -517,8 +493,6 @@ textarea {
   color: var(--text-muted);
 }
 
-/* RIGHT */
-
 .detail-right {
   display: flex;
   flex-direction: column;
@@ -542,7 +516,7 @@ textarea {
   margin-top: 0.5rem;
 }
 
-/* FORMULARIO RESEÑA */
+/* formulario de l reseña */
 
 .resena-form {
   background: #020617;
@@ -594,7 +568,7 @@ textarea {
   margin-top: 0.75rem;
 }
 
-/* BOTÓN PRINCIPAL */
+/* boton principal */
 
 .btn-primary {
   border-radius: 999px;
@@ -620,7 +594,7 @@ textarea {
   box-shadow: none;
 }
 
-/* BOTÓN ICONO (ELIMINAR) */
+/* botoon para eliminar */
 
 .btn-icon {
   border: none;
@@ -636,7 +610,7 @@ textarea {
   color: #f97373;
 }
 
-/* LISTA DE RESEÑAS / TIMELINE */
+/* listado de las reseñas */
 
 .resenas-list,
 .resenas-timeline {

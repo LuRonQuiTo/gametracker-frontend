@@ -3,7 +3,6 @@ import { updateJuego } from "../services/api";
 import { FaTrash, FaEdit, FaCheck, FaGamepad } from "react-icons/fa";
 
 function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) {
-  // Normalizamos el nombre del campo de imagen para que funcione con datos antiguos también
   const portadaUrl =
     juego.imagenPortada ||
     juego.urlPortada ||
@@ -12,7 +11,7 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
     "";
 
   async function toggleCompletado(e) {
-    e.stopPropagation(); // No abrir detalle al hacer click en el botón
+    e.stopPropagation();
     const actualizado = await updateJuego(juego._id, {
       ...juego,
       completado: !juego.completado,
@@ -31,7 +30,7 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
       onClick={handleCardClick}
     >
       <div className="card-3d-inner">
-        {/* Cara frontal - SOLO IMAGEN 9:16 */}
+        {/* Cara frontal en formato de 9:16 */}
         <div className="card-face card-front">
           <div className="aspect-9-16">
             {portadaUrl ? (

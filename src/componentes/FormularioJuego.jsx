@@ -40,7 +40,6 @@ function FormularioJuego({ juego, onGuardar, onCancelar }) {
 
   const [form, setForm] = useState(emptyForm);
 
-  // Cuando seleccionas un juego para editar, llenamos el formulario
   useEffect(() => {
     if (juego) {
       setForm({

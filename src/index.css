@@ -1,5 +1,3 @@
-/* ==== 3D CARD & ASPECT RATIO ==== */
-
 .card-3d {
   perspective: 1000px;
   cursor: pointer;
@@ -75,8 +73,6 @@
   font-size: 0.7rem;
   color: var(--text-muted);
 }
-
-/* ==== GAME DETAIL OVERLAY ==== */
 
 .detail-overlay {
   position: fixed;
@@ -209,8 +205,6 @@
   color: var(--text-muted);
 }
 
-/* Right side: timeline */
-
 .detail-right {
   display: flex;
   flex-direction: column;
@@ -259,8 +253,6 @@
   margin-top: 0.4rem;
 }
 
-/* Responsive */
-
 @media (max-width: 900px) {
   .detail-panel {
     max-height: none;
@@ -295,7 +287,7 @@
   color: #e5e7eb;
 }
 
-/* Reseñas (timeline) */
+/* Reseñas */
 
 .resena-item {
   background: rgba(15, 23, 42, 0.9);
@@ -338,8 +330,6 @@
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
-
-/* ==== FORMULARIO DE RESEÑA MÁS ESTÉTICO ==== */
 
 .detail-form-wrapper form {
   margin-top: 0.4rem;

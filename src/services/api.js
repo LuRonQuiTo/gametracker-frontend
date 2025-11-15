@@ -7,11 +7,11 @@ async function handleResponse(res) {
       errorBody.message || `Error HTTP ${res.status} - ${res.statusText}`;
     throw new Error(message);
   }
-  // si no hay body, devolvemos objeto vacío
+  // si no hay body, devuelve un objeto vacio
   return res.json().catch(() => ({}));
 }
 
-// -------- JUEGOS --------
+// juegos
 export function getJuegos() {
   return fetch(`${API_URL}/juegos`).then(handleResponse);
 }
@@ -44,7 +44,7 @@ export function deleteJuego(id) {
   });
 }
 
-// -------- RESEÑAS --------
+// reseñas
 export function getAllResenas() {
   return fetch(`${API_URL}/resenas`).then(handleResponse);
 }
