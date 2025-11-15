@@ -689,3 +689,14 @@ textarea {
   border-radius: 999px;
   background: #facc15;
 }
+
+.card-front {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-front img {
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

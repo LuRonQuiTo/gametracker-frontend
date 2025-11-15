@@ -8,16 +8,15 @@ import ListaResenas from "./ListaResenas";
 import FormularioResena from "./FormularioResena";
 import { FaTimes } from "react-icons/fa";
 
+const DEFAULT_COVER = "https://i.imgur.com/Qr71crq.jpg";
+
 function GameDetail({ juego, onClose }) {
   const [resenas, setResenas] = useState([]);
   const [cargando, setCargando] = useState(false);
 
-  const portadaUrl =
-    juego.imagenPortada ||
-    juego.urlPortada ||
-    juego.portada ||
-    juego.coverUrl ||
-    "";
+  const portadaUrl = juego.imagenPortada && juego.imagenPortada.trim().length > 0
+    ? juego.imagenPortada
+    : DEFAULT_COVER;
 
   useEffect(() => {
     if (!juego?._id) return;
@@ -39,7 +38,6 @@ function GameDetail({ juego, onClose }) {
     setResenas((prev) => prev.filter((r) => r._id !== id));
   }
 
-  //POST real con createResena
   async function manejarCrearResena(payload) {
     const nueva = await createResena(payload);
     setResenas((prev) => [nueva, ...prev]);
@@ -62,27 +60,18 @@ function GameDetail({ juego, onClose }) {
         </button>
 
         <div className="detail-layout">
-          {/* Izquierda: imagen + grafica en forma de pastel*/}
+          {/* imagen + pastel */}
           <div className="detail-left">
             <div className="detail-image-wrapper">
               <div className="aspect-9-16">
-                {portadaUrl ? (
-                  <img
-                    src={portadaUrl}
-                    alt={juego.titulo}
-                    className="detail-image"
-                    onError={(e) => {
-                      // si la URL falla,se muestra una placeholder
-                      e.currentTarget.style.display = "none";
-                      e.currentTarget.parentElement.innerHTML =
-                        '<div class="card-portada-placeholder">Sin portada</div>';
-                    }}
-                  />
-                ) : (
-                  <div className="card-portada-placeholder">
-                    {juego.titulo}
-                  </div>
-                )}
+                <img
+                  src={portadaUrl}
+                  alt={juego.titulo}
+                  className="detail-image"
+                  onError={(e) => {
+                    e.currentTarget.src = DEFAULT_COVER;
+                  }}
+                />
               </div>
             </div>
 
@@ -103,7 +92,7 @@ function GameDetail({ juego, onClose }) {
               )}
             </div>
 
-            {/* Gráfico tipo pastel */}
+            {/* Graficopastel */}
             <div className="detail-pie-section">
               <h3>Promedio de reseñas</h3>
               <div className="pie-wrapper">
@@ -128,7 +117,7 @@ function GameDetail({ juego, onClose }) {
             </div>
           </div>
 
-          {/* Derecha: reseñas tipo linea de tiempo*/}
+          {}
           <div className="detail-right">
             <h3>Reseñas de usuarios</h3>
             {cargando ? (

@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { updateJuego } from "../services/api";
 import { FaTrash, FaEdit, FaCheck, FaGamepad } from "react-icons/fa";
 
+const DEFAULT_COVER = "https://i.imgur.com/Qr71crq.jpg"; // imagen genérica
+
 function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) {
-  const portadaUrl =
-    juego.imagenPortada ||
-    juego.urlPortada ||
-    juego.portada ||
-    juego.coverUrl ||
-    "";
+  // Usamos imagenPortada si viene sino el espaldo
+  const portadaUrl = juego.imagenPortada && juego.imagenPortada.trim().length > 0
+    ? juego.imagenPortada
+    : DEFAULT_COVER;
 
   async function toggleCompletado(e) {
-    e.stopPropagation();
+    e.stopPropagation(); 
     const actualizado = await updateJuego(juego._id, {
       ...juego,
       completado: !juego.completado,
@@ -30,7 +30,7 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
       onClick={handleCardClick}
     >
       <div className="card-3d-inner">
-        {/* Cara frontal en formato de 9:16 */}
+        {/* Cara frontal: solo imagen 9:16 */}
         <div className="card-face card-front">
           <div className="aspect-9-16">
             {portadaUrl ? (
@@ -38,6 +38,9 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
                 src={portadaUrl}
                 alt={juego.titulo}
                 className="card-portada-img"
+                onError={(e) => {
+                  e.currentTarget.src = DEFAULT_COVER;
+                }}
               />
             ) : (
               <div className="card-portada-placeholder">
@@ -47,16 +50,15 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
           </div>
         </div>
 
-        {/* Cara trasera con info */}
+        {/* info del juego */}
         <div className="card-face card-back">
           <div className="card-back-content">
             <h3>{juego.titulo}</h3>
-
             <p className="card-meta">
               <span>{juego.genero || "Sin género"}</span>
               <span>
-                {juego.plataforma || "Plataforma desconocida"}
-                {juego.anioLanzamiento && ` • ${juego.anioLanzamiento}`}
+                {juego.plataforma || "Plataforma desconocida"}{" "}
+                {juego.anioLanzamiento && `• ${juego.anioLanzamiento}`}
               </span>
               {juego.desarrollador && <span>Dev: {juego.desarrollador}</span>}
             </p>
@@ -91,7 +93,6 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
               >
                 <FaEdit /> Editar
               </button>
-
               <button
                 className="btn-danger"
                 onClick={(e) => {
