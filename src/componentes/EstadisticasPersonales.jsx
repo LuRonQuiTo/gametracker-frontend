@@ -1,35 +1,29 @@
-import { FaChartPie, FaCheckCircle, FaList } from "react-icons/fa";
-
 function EstadisticasPersonales({ juegos }) {
-  const totalJuegos = juegos.length;
+  const total = juegos.length;
   const completados = juegos.filter((j) => j.completado).length;
-  const pendientes = totalJuegos - completados;
-  const porcentaje =
-    totalJuegos === 0 ? 0 : Math.round((completados / totalJuegos) * 100);
+  const pendientes = total - completados;
+  const porcentaje = total ? Math.round((completados / total) * 100) : 0;
 
   return (
-    <section className="panel">
+    <div className="estadisticas-card">
       <h2>Estadísticas personales</h2>
-      <div className="stats-grid">
-        <div className="stat-card">
-          <FaList />
-          <span className="stat-label">Juegos totales</span>
-          <span className="stat-value">{totalJuegos}</span>
-        </div>
-        <div className="stat-card">
-          <FaCheckCircle />
-          <span className="stat-label">Completados</span>
-          <span className="stat-value">
+      <ul className="stats-list">
+        <li>
+          🎮 <span>Juegos totales</span>
+          <strong>{total}</strong>
+        </li>
+        <li>
+          ✅ <span>Completados</span>
+          <strong>
             {completados} ({porcentaje}%)
-          </span>
-        </div>
-        <div className="stat-card">
-          <FaChartPie />
-          <span className="stat-label">Pendientes</span>
-          <span className="stat-value">{pendientes}</span>
-        </div>
-      </div>
-    </section>
+          </strong>
+        </li>
+        <li>
+          ⏳ <span>Pendientes</span>
+          <strong>{pendientes}</strong>
+        </li>
+      </ul>
+    </div>
   );
 }
 

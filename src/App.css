@@ -272,3 +272,93 @@ textarea {
   margin-top: 0.4rem;
   align-self: flex-end;
 }
+
+
+.estadisticas-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.stats-list {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stats-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.stats-list span {
+  flex: 1;
+}
+
+.stats-list strong {
+  color: var(--text);
+}
+
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rating-input .rating-star {
+  display: inline-block;              
+  font-size: 1.6rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.rating-input .rating-star.active {
+  color: #facc15;
+}
+
+.rating-input .rating-star.hover {
+  transform: scale(1.4) translateY(-2px);  
+}
+
+.rating-score {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 0.25rem;
+}
+
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rating-input .rating-star {
+  display: inline-block; 
+  font-size: 1.8rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.rating-input .rating-star.active {
+  color: #facc15; /* amarillo */
+}
+
+.rating-input .rating-star.hover {
+  transform: scale(1.5) translateY(-3px);
+  color: #fde047;
+}
+
+.rating-score {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-left: 0.4rem;
+}
