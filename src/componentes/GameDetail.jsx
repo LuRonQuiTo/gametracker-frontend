@@ -12,7 +12,16 @@ function GameDetail({ juego, onClose }) {
   const [resenas, setResenas] = useState([]);
   const [cargando, setCargando] = useState(false);
 
+  // Normalizamos la URL de portada (por si en la BD hay campos antiguos)
+  const portadaUrl =
+    juego.imagenPortada ||
+    juego.urlPortada ||
+    juego.portada ||
+    juego.coverUrl ||
+    "";
+
   useEffect(() => {
+    if (!juego?._id) return;
     cargarResenas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [juego._id]);
@@ -21,7 +30,7 @@ function GameDetail({ juego, onClose }) {
     setCargando(true);
     try {
       const data = await getResenasByJuego(juego._id);
-      setResenas(data);
+      setResenas(Array.isArray(data) ? data : []);
     } finally {
       setCargando(false);
     }
@@ -32,8 +41,9 @@ function GameDetail({ juego, onClose }) {
     setResenas((prev) => prev.filter((r) => r._id !== id));
   }
 
-  async function manejarCrearResena(data) {
-    const nueva = await createResena({ ...data, juegoId: juego._id });
+  // Aquí se hace el POST real con createResena
+  async function manejarCrearResena(payload) {
+    const nueva = await createResena(payload);
     setResenas((prev) => [nueva, ...prev]);
   }
 
@@ -58,11 +68,17 @@ function GameDetail({ juego, onClose }) {
           <div className="detail-left">
             <div className="detail-image-wrapper">
               <div className="aspect-9-16">
-                {juego.imagenPortada ? (
+                {portadaUrl ? (
                   <img
-                    src={juego.imagenPortada}
+                    src={portadaUrl}
                     alt={juego.titulo}
                     className="detail-image"
+                    onError={(e) => {
+                      // si la URL falla, mostramos un fondo placeholder
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.parentElement.innerHTML =
+                        '<div class="card-portada-placeholder">Sin portada</div>';
+                    }}
                   />
                 ) : (
                   <div className="card-portada-placeholder">
@@ -80,7 +96,9 @@ function GameDetail({ juego, onClose }) {
                   {juego.plataforma || "Plataforma desconocida"}{" "}
                   {juego.anioLanzamiento && `• ${juego.anioLanzamiento}`}
                 </span>
-                {juego.desarrollador && <span>Dev: {juego.desarrollador}</span>}
+                {juego.desarrollador && (
+                  <span>Dev: {juego.desarrollador}</span>
+                )}
               </p>
               {juego.descripcion && (
                 <p className="detail-description">{juego.descripcion}</p>

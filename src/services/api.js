@@ -7,6 +7,7 @@ async function handleResponse(res) {
       errorBody.message || `Error HTTP ${res.status} - ${res.statusText}`;
     throw new Error(message);
   }
+  // si no hay body, devolvemos objeto vacío
   return res.json().catch(() => ({}));
 }
 

@@ -3,8 +3,16 @@ import { updateJuego } from "../services/api";
 import { FaTrash, FaEdit, FaCheck, FaGamepad } from "react-icons/fa";
 
 function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) {
+  // Normalizamos el nombre del campo de imagen para que funcione con datos antiguos también
+  const portadaUrl =
+    juego.imagenPortada ||
+    juego.urlPortada ||
+    juego.portada ||
+    juego.coverUrl ||
+    "";
+
   async function toggleCompletado(e) {
-    e.stopPropagation(); // no abrir detalle al hacer click
+    e.stopPropagation(); // No abrir detalle al hacer click en el botón
     const actualizado = await updateJuego(juego._id, {
       ...juego,
       completado: !juego.completado,
@@ -23,12 +31,12 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
       onClick={handleCardClick}
     >
       <div className="card-3d-inner">
-        {/* Cara frontal: solo imagen 9:16 */}
+        {/* Cara frontal - SOLO IMAGEN 9:16 */}
         <div className="card-face card-front">
           <div className="aspect-9-16">
-            {juego.imagenPortada ? (
+            {portadaUrl ? (
               <img
-                src={juego.imagenPortada}
+                src={portadaUrl}
                 alt={juego.titulo}
                 className="card-portada-img"
               />
@@ -40,15 +48,16 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
           </div>
         </div>
 
-        {/* Cara trasera: info del juego */}
+        {/* Cara trasera con info */}
         <div className="card-face card-back">
           <div className="card-back-content">
             <h3>{juego.titulo}</h3>
+
             <p className="card-meta">
               <span>{juego.genero || "Sin género"}</span>
               <span>
-                {juego.plataforma || "Plataforma desconocida"}{" "}
-                {juego.anioLanzamiento && `• ${juego.anioLanzamiento}`}
+                {juego.plataforma || "Plataforma desconocida"}
+                {juego.anioLanzamiento && ` • ${juego.anioLanzamiento}`}
               </span>
               {juego.desarrollador && <span>Dev: {juego.desarrollador}</span>}
             </p>
@@ -83,6 +92,7 @@ function TarjetaJuego({ juego, onEditar, onEliminar, setJuegos, onVerDetalle }) 
               >
                 <FaEdit /> Editar
               </button>
+
               <button
                 className="btn-danger"
                 onClick={(e) => {

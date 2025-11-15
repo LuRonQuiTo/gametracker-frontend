@@ -2,7 +2,7 @@ import { FaStar, FaTrash } from "react-icons/fa";
 
 function ListaResenas({ resenas, onEliminar, modoTimeline = false }) {
   if (!resenas.length) {
-    return <p>Aún no hay reseñas para este juego.</p>;
+    return <p className="status-text">Aún no hay reseñas para este juego.</p>;
   }
 
   return (

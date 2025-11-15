@@ -197,7 +197,7 @@ body {
   color: #fef9c3;
 }
 
-/* INPUTS BÁSICOS (por si los componentes los usan sin estilos propios) */
+/* INPUTS BÁSICOS */
 
 input,
 select,
@@ -220,6 +220,7 @@ textarea {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
 }
+
 /* === FORMULARIO DE LA COLUMNA IZQUIERDA === */
 
 .side-column form {
@@ -273,6 +274,7 @@ textarea {
   align-self: flex-end;
 }
 
+/* === ESTADÍSTICAS PERSONALES === */
 
 .estadisticas-card h2 {
   margin-top: 0;
@@ -304,6 +306,7 @@ textarea {
   color: var(--text);
 }
 
+/* === RATING ESTRELLAS (FORMULARIO) === */
 
 .rating-input {
   display: flex;
@@ -312,36 +315,7 @@ textarea {
 }
 
 .rating-input .rating-star {
-  display: inline-block;              
-  font-size: 1.6rem;
-  color: #4b5563;
-  cursor: pointer;
-  transition: transform 0.15s ease, color 0.15s ease;
-}
-
-.rating-input .rating-star.active {
-  color: #facc15;
-}
-
-.rating-input .rating-star.hover {
-  transform: scale(1.4) translateY(-2px);  
-}
-
-.rating-score {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-left: 0.25rem;
-}
-
-
-.rating-input {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.rating-input .rating-star {
-  display: inline-block; 
+  display: inline-block;
   font-size: 1.8rem;
   color: #4b5563;
   cursor: pointer;
@@ -349,7 +323,7 @@ textarea {
 }
 
 .rating-input .rating-star.active {
-  color: #facc15; /* amarillo */
+  color: #facc15;
 }
 
 .rating-input .rating-star.hover {
@@ -361,4 +335,383 @@ textarea {
   font-size: 0.9rem;
   color: #cbd5e1;
   margin-left: 0.4rem;
+}
+
+/* === DETALLE DEL JUEGO (MODAL) === */
+
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.detail-panel {
+  position: relative;
+  width: min(1100px, 100% - 3rem);
+  max-height: calc(100vh - 3rem);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 1.2rem 1.4rem 1.4rem;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.detail-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.8rem;
+  border: none;
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text-muted);
+  border-radius: 999px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.detail-close:hover {
+  color: var(--text);
+  background: rgba(31, 41, 55, 0.95);
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr);
+  gap: 1.5rem;
+  margin-top: 0.6rem;
+  max-height: calc(100vh - 4.5rem);
+}
+
+@media (max-width: 960px) {
+  .detail-panel {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .detail-layout {
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 4rem);
+  }
+}
+
+/* LEFT */
+
+.detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+.detail-image-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.95);
+}
+
+.aspect-9-16 {
+  position: relative;
+  width: 100%;
+  padding-top: calc(16 / 9 * 100%);
+}
+
+.detail-image,
+.card-portada-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-portada-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111827;
+  color: var(--text-muted);
+  padding: 1rem;
+  text-align: center;
+}
+
+.detail-info h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.detail-meta {
+  margin: 0.25rem 0 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.detail-description {
+  font-size: 0.9rem;
+  color: #d1d5db;
+}
+
+/* PIE CHART PROMEDIO */
+
+.detail-pie-section h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
+
+.pie-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.pie-chart {
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-center {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-score {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.pie-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* RIGHT */
+
+.detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow: hidden;
+}
+
+.detail-right h3 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.detail-reviews-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+.detail-form-wrapper {
+  margin-top: 0.5rem;
+}
+
+/* FORMULARIO RESEÑA */
+
+.resena-form {
+  background: #020617;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 0.9rem 1rem 1rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+}
+
+.resena-form h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.resena-form label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.resena-form textarea,
+.resena-form input,
+.resena-form select {
+  width: 100%;
+  margin-top: 0.2rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  color: var(--text);
+  padding: 0.4rem 0.55rem;
+  font-size: 0.85rem;
+}
+
+.resena-form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.resena-form textarea:focus,
+.resena-form input:focus,
+.resena-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary-soft);
+}
+
+.resena-form button {
+  margin-top: 0.75rem;
+}
+
+/* BOTÓN PRINCIPAL */
+
+.btn-primary {
+  border-radius: 999px;
+  border: none;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(79, 70, 229, 0.75);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* BOTÓN ICONO (ELIMINAR) */
+
+.btn-icon {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  color: #f97373;
+}
+
+/* LISTA DE RESEÑAS / TIMELINE */
+
+.resenas-list,
+.resenas-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.resena-item {
+  background: #020617;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.75rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+}
+
+.resena-item header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.resena-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.star-active {
+  color: #facc15;
+}
+
+.resena-num {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-left: 0.2rem;
+}
+
+.resena-item p {
+  margin: 0.25rem 0 0.35rem;
+}
+
+.resena-item small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* timeline: línea a la izquierda */
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: #1f2937;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 0.16rem;
+  top: 0.4rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #facc15;
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { API_URL } from "../config"; // asegúrate que aquí apunte a http://localhost:4000/api
 
 function FormularioResena({ juegoId, onResenaCreada }) {
   const [textoResena, setTextoResena] = useState("");
@@ -23,10 +22,10 @@ function FormularioResena({ juegoId, onResenaCreada }) {
       return;
     }
 
-    // 👇 OJO: nombres de campos SIN tilde
+    // Payload con nombres EXACTOS del modelo
     const payload = {
-      juegoId,
-      textoResena,                            // <-- sin ñ
+      juegoId, // 👈 el id del juego lo manda el padre
+      textoResena,
       puntuacion,
       horasJugadas: horasJugadas ? Number(horasJugadas) : 0,
       dificultad,
@@ -36,40 +35,9 @@ function FormularioResena({ juegoId, onResenaCreada }) {
     try {
       setEnviando(true);
 
-      const resp = await fetch(`${API_URL}/resenas`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      let data = null;
-      try {
-        data = await resp.json();
-      } catch (_) {
-        // por si el backend no devuelve JSON
-      }
-
-      if (!resp.ok) {
-        console.error(
-          "Error al guardar reseña:",
-          resp.status,
-          data || "(sin cuerpo)"
-        );
-        alert(
-          data?.message ||
-            data?.error ||
-            "No se pudo guardar la reseña."
-        );
-        return;
-      }
-
-      const nuevaResena = data;
-
-      // Avisar al padre para que actualice la lista
+      // El padre (GameDetail) hará el POST real
       if (onResenaCreada) {
-        onResenaCreada(nuevaResena);
+        await onResenaCreada(payload);
       }
 
       // Limpiar formulario
@@ -79,8 +47,8 @@ function FormularioResena({ juegoId, onResenaCreada }) {
       setRecomendaria(false);
       setPuntuacion(0);
     } catch (err) {
-      console.error("Error de red al guardar reseña:", err);
-      alert("Error de red al intentar guardar la reseña.");
+      console.error("Error al guardar reseña:", err);
+      alert("No se pudo guardar la reseña.");
     } finally {
       setEnviando(false);
     }
